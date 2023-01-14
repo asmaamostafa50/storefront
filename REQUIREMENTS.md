@@ -13,7 +13,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Users
 
-- app.post('/users/add', authentication);
+- app.post('/users/add');
 - app.post('/users/authenticate', authenticate);
 - app.get('/users/list', authentication);
 - app.delete('/users/delete/:id', authentication);
