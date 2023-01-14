@@ -50,7 +50,7 @@ app.use([logger]);
 //app.Method takes two parameters, URI and callback function
 //callback function takes request and response objects as parameters
 app.get('/', async (req: Request, res: Response): Promise<void> => {
-  res.sendFile(__dirname + '/views/index.html');
+  res.status(200).send('working');
 });
 
 userRoutes(app);

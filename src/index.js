@@ -41,7 +41,7 @@ app.use([logger_1.default]);
 //app.Method takes two parameters, URI and callback function
 //callback function takes request and response objects as parameters
 app.get('/', async (req, res) => {
-    res.sendFile(__dirname + '/views/index.html');
+    res.status(200).send('working');
 });
 (0, user_1.default)(app);
 (0, order_1.default)(app);
