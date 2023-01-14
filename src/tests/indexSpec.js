@@ -57,10 +57,6 @@ describe('Test endpoint responses', () => {
             const response = await request.get('/orders/list');
             expect(response.status).toBe(401);
         });
-        it('401 when create user without token', async () => {
-            const response = await request.post('/users/add').send(user);
-            expect(response.status).toBe(401);
-        });
         it('401 when create order without token', async () => {
             const response = await request.post('/orders/add');
             expect(response.status).toBe(401);
@@ -85,8 +81,7 @@ describe('Test endpoint responses', () => {
             expect(response.status).toBe(200);
         });
         it('200 when create user with token', async () => {
-            const response = await request.post('/users/add').send(user2)
-                .set({ ...jsonHeaders, Authorization: token });
+            const response = await request.post('/users/add').send(user2);
             const decodedUser = (0, jwt_decode_1.default)(response.body).user;
             userId = decodedUser.id;
             expect(response.status).toBe(200);

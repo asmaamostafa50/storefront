@@ -90,7 +90,7 @@ const deleteUser = async (req, res) => {
     }
 };
 const userRoutes = (app) => {
-    app.post('/users/add', authentication_1.default, addUser);
+    app.post('/users/add', addUser);
     app.post('/users/authenticate', authenticate);
     app.get('/users/list', authentication_1.default, getUsers);
     app.delete('/users/delete/:id', authentication_1.default, deleteUser);
