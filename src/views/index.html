@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>todo API</title>
+</head>
+
+<body>
+  <h1 id="api-endpoints">API Endpoints</h1>
+  <h2 id="todos">Todos</h2>
+  <ul>
+    <li>
+      <h3>Create (/todos) POST</h3>
+      body:
+      <ul>
+        <li> title
+        </li>
+      </ul>
+    </li>
+    <li>
+      <h3>index(/todos) GET</h3>
+      queries:
+      <ul>
+        <li> sort=asc/dec
+        </li>
+        <li> limit(integer)
+        </li>
+        <li> completed=true/false
+        </li>
+      </ul>
+    </li>
+    <li>
+      <h3>Show(/todos/:id) GET</h3>
+    </li>
+    <li>
+      <h3>Create (/todos/:id) PATCH</h3>
+      body(must contain at least one of):
+      <ul>
+        <li> title
+        </li>
+        <li> completed
+        </li>
+      </ul>
+    </li>
+    <li>
+      <h3>Delete(/todos/:id) DELETE</h3>
+    </li>
+  </ul>
+</body>
+
+</html>
