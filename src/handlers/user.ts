@@ -94,7 +94,7 @@ const deleteUser = async (req: Request, res: Response): Promise<void> => {
 };
 
 const userRoutes = (app: express.Application):void =>{
-  app.post('/users/add', authentication, addUser);
+  app.post('/users/add', addUser);
   app.post('/users/authenticate', authenticate);
   app.get('/users/list', authentication, getUsers);
   app.delete('/users/delete/:id', authentication, deleteUser);
