@@ -5,12 +5,16 @@
 - To get started, clone this repo and run `yarn or npm i` in your terminal at the project root.
 
 - you have to have a .env file in the repo, it has to contain the following variables
+
 POSTGRES_HOST=127.0.0.1
 POSTGRES_DB=storefront
 POSTGRES_TEST_DB=storefront_test
 POSTGRES_USER=somam
 POSTGRES_PASSWORD=Dev@123456
 NODE_ENV=dev
+BCRYPT_PASSWORD=your-secret-password
+SALT_ROUNDS=10
+TOKEN_SECRET=your-token-secret
 
 - you have to create two databases with the value you set in POSTGRES_DB, POSTGRES_TEST_DB, this is an example for the SQL needed when connected to psql
 `
