@@ -6,7 +6,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 ## API Endpoints
 #### Products
 - app.post('/products/add', authentication);
-- app.post('/products/list', getProducts);
+- app.get('/products/list', getProducts);
 - app.get('/products/:id', getProductById);
 - app.patch('/products/edit/:id', authentication);
 - app.delete('/products/delete/:id', authentication);
@@ -17,6 +17,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 - app.post('/users/authenticate', authenticate);
 - app.get('/users/list', authentication);
 - app.delete('/users/delete/:id', authentication);
+- app.get('/users/:id', authentication);
 
 #### Orders
 - app.post('/orders/add', authentication);

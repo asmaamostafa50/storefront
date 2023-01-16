@@ -40,6 +40,10 @@ describe('Working Routes Test', ():void => {
       expect(response.first_name).toBe(user2.first_name);
       expect(response.last_name).toBe(user2.last_name);
     });
+    it('get user by id', async (): Promise<void> => {
+      const response = await userStore.show(userId);
+      expect(response.user_name).toBe(user2.user_name);
+    });
     it('get users', async (): Promise<void> => {
         const response = await userStore.index();
         expect(response.length).toBeGreaterThanOrEqual(1);
@@ -49,6 +53,15 @@ describe('Working Routes Test', ():void => {
       productId = response.id as number;
       expect(response.name).toEqual(product.name);
       expect(response.price).toEqual(product.price);
+    });
+    it('get product by id', async (): Promise<void> => {
+      const response = await productStore.show(productId);
+      expect(response.name).toBe(product.name);
+      expect(response.price).toEqual(product.price);
+    });
+    it('get products', async (): Promise<void> => {
+      const response = await productStore.index();
+      expect(response.length).toBeGreaterThanOrEqual(1);
     });
     const order: Order = {
       user_id: userId,

@@ -45,16 +45,17 @@ let token: string;
 
 describe('Test endpoint responses', (): void => {
 
+  beforeAll( async (): Promise<void> => {
+    var addedUser = await userStore.create(user);
+    console.log("addedUser: " + addedUser);
+  });
+
   it('tests the main endpoint', async (): Promise<void> => {
     const response = await request.get('/');
     expect(response.status).toBe(200);
   });
 
   it('authenticate route test', async (): Promise<void> => {
-    
-    var addedUser = await userStore.create(user);
-    console.log("addedUser: " + addedUser);
-
     const response = await request.post('/users/authenticate').set(jsonHeaders).send({user_name: user.user_name, password : user.password});
     token = 'Bearer ' + response.body;
     console.log('Token: ' + token);
@@ -83,6 +84,10 @@ describe('Test endpoint responses', (): void => {
     });
     it('401 when get any order without token', async (): Promise<void> => {
       const response = await request.get('/orders/get/1');
+      expect(response.status).toBe(401);
+    });
+    it('401 when get any user without token', async (): Promise<void> => {
+      const response = await request.get('/users/1');
       expect(response.status).toBe(401);
     });
     it('401 when get order by user id without token', async (): Promise<void> => {
@@ -137,12 +142,24 @@ describe('Test endpoint responses', (): void => {
       .set({ ...jsonHeaders, Authorization: token});
       expect(response.status).toBe(200);
     });
+    it('200 when get products with token', async (): Promise<void> => {
+      const response = await request.get('/products/list')
+      .set({ ...jsonHeaders, Authorization: token});
+      expect(response.status).toBe(200);
+    });
     it('200 when get any order with token', async (): Promise<void> => {
       const response = await request.get(`/orders/get/${orderId}`)
       .set({ ...jsonHeaders, Authorization: token});
       expect(response.status).toBe(200);
       expect(response.body.user_id).toEqual(userId);
       expect(response.body.completed).toEqual(order.completed);
+    });
+    it('200 when get any user with token', async (): Promise<void> => {
+      const response = await request.get(`/users/${userId}`)
+      .set({ ...jsonHeaders, Authorization: token});
+      expect(response.status).toBe(200);
+      expect(response.body.id).toEqual(userId);
+      expect(response.body.user_name).toEqual(user2.user_name);
     });
     it('200 when get order by user id with token', async (): Promise<void> => {
       const response = await request.get(`/orders/user/${userId}`)
