@@ -79,71 +79,9 @@ const addProduct = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-//edit a resource
-const editProduct = async (req: Request, res: Response): Promise<void> => {
-  //ensure product is found
-  const id: number = parseInt(req.params.id as string);
-
-  if (id) {
-    try {
-      const name: string | undefined = req.body.name;
-      const price: number | undefined = req.body.price;
-
-      //no name or completed sent to edit
-      if (!('name' in req.body)) {
-        res.status(400).send('missing parameters');
-      }
-      //name is sent but not as a string
-      else if ('name' in req.body && typeof name != 'string') {
-        res.status(400).send('name must be a string');
-      }
-
-      if (!('price' in req.body)) {
-        res.status(400).send('missing parameters');
-      }
-      //name is sent but not as a string
-      else if ('price' in req.body && typeof price != 'number') {
-        res.status(400).send('price must be a number');
-      }
-      //completed is sent but not as a boolean
-      else {
-        const product = await productStore.update(id, name, price);
-        res.status(200).json(product);
-      }
-    } catch (err) {
-      console.log(err);
-      res.status(500).send(err);
-    }
-  } else {
-    res.sendStatus(404);
-  }
-};
-
-//delete a resouce
-const deleteProduct = async (req: Request, res: Response): Promise<void> => {
-    const id: number = parseInt(req.params.id as string);
-    if (id) {
-      try {
-        const deleted: number | undefined = await productStore.delete(id);
-        if (deleted) {
-          res.status(200).send('deleted successfuly');
-        } else {
-          res.status(404).send('resource not found');
-        }
-      } catch (err) {
-        console.log(err);
-        res.status(500).send(err);
-      }
-    } else {
-      res.sendStatus(404);
-    }
-};
-
 const productRoutes = (app: express.Application):void =>{
   app.post('/products/add', authentication, addProduct);
   app.get('/products/list', getProducts);
   app.get('/products/:id', getProductById);
-  app.patch('/products/edit/:id', authentication, editProduct);
-  app.delete('/products/delete/:id', authentication, deleteProduct);
 };  
 export default productRoutes;

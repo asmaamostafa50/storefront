@@ -8,23 +8,18 @@ These are the notes from a meeting with the frontend developer that describe wha
 - app.post('/products/add', authentication);
 - app.get('/products/list', getProducts);
 - app.get('/products/:id', getProductById);
-- app.patch('/products/edit/:id', authentication);
-- app.delete('/products/delete/:id', authentication);
 
 #### Users
 
 - app.post('/users/add');
 - app.post('/users/authenticate', authenticate);
 - app.get('/users/list', authentication);
-- app.delete('/users/delete/:id', authentication);
 - app.get('/users/:id', authentication);
 
 #### Orders
 - app.post('/orders/add', authentication);
 - app.get('/orders/list', authentication);
 - app.get('/orders/get/:id', authentication);
-- app.patch('/orders/edit/:id', authentication);
-- app.delete('/orders/delete/:id', authentication);
 - app.get('/orders/:id/getProducts', authentication);
 - app.post('/orders/:id/addProduct', authentication);
 - app.get('/orders/user/:id', authentication);

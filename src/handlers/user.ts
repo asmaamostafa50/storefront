@@ -73,26 +73,6 @@ const authenticate = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-//delete a resouce
-const deleteUser = async (req: Request, res: Response): Promise<void> => {
-    const id: number = parseInt(req.params.id as string);
-    if (id) {
-      try {
-        const deleted: number | undefined = await userStore.delete(id);
-        if (deleted) {
-          res.sendStatus(200);
-        } else {
-          res.status(404).send('resource not found');
-        }
-      } catch (err) {
-        console.log(err);
-        res.status(401).send(err);
-      }
-    } else {
-      res.sendStatus(404);
-    }
-};
-
 const getUserById = async (req: Request, res: Response): Promise<void> => {
   const id: number = parseInt(req.params.id as string);
   if (id) {
@@ -118,6 +98,5 @@ const userRoutes = (app: express.Application):void =>{
   app.post('/users/authenticate', authenticate);
   app.get('/users/list', authentication, getUsers);
   app.get('/users/:id', authentication, getUserById);
-  app.delete('/users/delete/:id', authentication, deleteUser);
 };  
 export default userRoutes;

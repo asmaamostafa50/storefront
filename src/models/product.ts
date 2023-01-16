@@ -59,49 +59,5 @@ export class ProductStore {
       );
     }
   }
-
-  async delete(id: number): Promise<number> {
-    try {
-      const sql = 'DELETE FROM products WHERE id=($1)';
-
-      const conn = await Client.connect();
-
-      const result = await conn.query(sql, [id]);
-      const numberOfDeletedRows = result.rowCount;
-
-      conn.release();
-
-      return numberOfDeletedRows;
-    } catch (err) {
-      throw new Error(`Could not delete product ${id}. Error: ${err}`);
-    }
-  }
-
-  async update(
-    id: number,
-    name: string | undefined,
-    price: number | undefined
-  ): Promise<Product> {
-    try {
-      const nameType: boolean = typeof name !== 'undefined';
-      const priceType: boolean = typeof name !== 'undefined';
-
-      const conn = await Client.connect();
-      let sql, result, product;
-      if (nameType) {
-        sql =
-          'Update products SET name=($2) WHERE id=($1) RETURNING *';
-        result = await conn.query(sql, [id, name]);
-      } if (priceType) {
-        sql = 'Update products SET price=($2) WHERE id=($1) RETURNING *';
-        result = await conn.query(sql, [id, price]);
-      } 
-      product = result?.rows[0];
-      conn.release();
-
-      return product;
-    } catch (err) {
-      throw new Error(`Could not update product ${id}. Error: ${err}`);
-    }
-  }
 }
+  
