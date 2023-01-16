@@ -141,7 +141,7 @@ const deleteProduct = async (req: Request, res: Response): Promise<void> => {
 
 const productRoutes = (app: express.Application):void =>{
   app.post('/products/add', authentication, addProduct);
-  app.post('/products/list', getProducts);
+  app.get('/products/list', getProducts);
   app.get('/products/:id', getProductById);
   app.patch('/products/edit/:id', authentication, editProduct);
   app.delete('/products/delete/:id', authentication, deleteProduct);
