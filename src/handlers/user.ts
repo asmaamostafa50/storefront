@@ -93,11 +93,31 @@ const deleteUser = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
+const getUserById = async (req: Request, res: Response): Promise<void> => {
+  const id: number = parseInt(req.params.id as string);
+  if (id) {
+    try {
+      const product: User | undefined = await userStore.show(id);
+
+      if (product) {
+        res.status(200).json(product);
+      } else {
+        res.status(404).send('resource not found');
+      }
+    } catch (err) {
+      console.log(err);
+      res.status(500).send(err);
+    }
+  } else {
+    res.sendStatus(404);
+  }
+};
+
 const userRoutes = (app: express.Application):void =>{
   app.post('/users/add', addUser);
   app.post('/users/authenticate', authenticate);
   app.get('/users/list', authentication, getUsers);
-  app.get('/users/:id', getUserById);
+  app.get('/users/:id', authentication, getUserById);
   app.delete('/users/delete/:id', authentication, deleteUser);
 };  
 export default userRoutes;
